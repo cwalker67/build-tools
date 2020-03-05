@@ -1,5 +1,0 @@
-[repo-grakn-rpm]
-name=repo-grakn-rpm
-baseurl=http://repo.grakn.ai/repository/rpm/
-enabled=1
-gpgcheck=0

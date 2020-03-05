@@ -24,30 +24,11 @@ workspace(name = "graknlabs_build_tools")
 ###########################
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-load("//bazel:dependencies.bzl","bazel_common", "bazel_deps", "bazel_toolchain",
-     "bazel_rules_nodejs", "bazel_rules_python")
-bazel_common()
-bazel_deps()
-bazel_toolchain()
-
-load("//bazel:dependencies.bzl", "bazel_rules_docker", "bazel_rules_nodejs", "bazel_rules_python")
-bazel_rules_docker()
-bazel_rules_nodejs()
-bazel_rules_python()
-
-load("@io_bazel_rules_python//python:pip.bzl", "pip_repositories", "pip_import")
-pip_repositories()
 
 
 #################################
 # Load Build Tools dependencies #
 #################################
-
-load("//checkstyle:dependencies.bzl", "checkstyle_dependencies")
-checkstyle_dependencies()
-
-load("//sonarcloud:dependencies.bzl", "sonarcloud_dependencies")
-sonarcloud_dependencies()
 
 load("//distribution:dependencies.bzl", "graknlabs_bazel_distribution")
 graknlabs_bazel_distribution()
@@ -55,17 +36,6 @@ graknlabs_bazel_distribution()
 load("@graknlabs_bazel_distribution//common:dependencies.bzl", "bazelbuild_rules_pkg")
 bazelbuild_rules_pkg()
 
-load("//grpc:dependencies.bzl", "grpc_dependencies")
-grpc_dependencies()
-
-pip_import(
-    name = "graknlabs_build_tools_ci_pip",
-    requirements = "//ci:requirements.txt",
-)
-
-load("@graknlabs_build_tools_ci_pip//:requirements.bzl",
-graknlabs_build_tools_ci_pip_install = "pip_install")
-graknlabs_build_tools_ci_pip_install()
 
 # Generate a JSON document of commit hashes of all external workspace dependencies
 load("@graknlabs_bazel_distribution//common:rules.bzl", "workspace_refs")
@@ -82,14 +52,4 @@ git_repository(
 load("@io_bazel_skydoc//:setup.bzl", "skydoc_repositories")
 skydoc_repositories()
 
-load("@io_bazel_rules_sass//:package.bzl", "rules_sass_dependencies")
-rules_sass_dependencies()
 
-load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
-node_repositories()
-
-load("@io_bazel_rules_sass//:defs.bzl", "sass_repositories")
-sass_repositories()
-
-load("//unused_deps:dependencies.bzl", "unused_deps_dependencies")
-unused_deps_dependencies()
